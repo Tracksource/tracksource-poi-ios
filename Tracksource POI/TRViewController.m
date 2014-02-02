@@ -7,8 +7,13 @@
 //
 
 #import "TRViewController.h"
+#import <CoreLocation/CoreLocation.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
-@interface TRViewController ()
+@interface TRViewController () <CLLocationManagerDelegate> {
+	CLLocationManager *locationManager;
+}
+@property CLLocation *currentLocation;
 
 @end
 
@@ -18,6 +23,24 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+	CLLocationManager *manager = [[CLLocationManager alloc] init];
+	locationManager = manager;
+	locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+	manager.delegate = self;
+	[manager startUpdatingLocation];
+	
+	[[RACObserve(self, currentLocation) ignore:nil] subscribeNext:^(CLLocation *newLocation) {
+		
+		NSLog(@"holy shit %f, %f, %f",newLocation.coordinate.latitude, newLocation.coordinate.longitude, newLocation.horizontalAccuracy);
+	}];
+	
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    // omitting accuracy & cache checking
+    CLLocation *location = [locations lastObject];
+    self.currentLocation = location;
+		// [locationManager stopUpdatingLocation];
 }
 
 - (void)didReceiveMemoryWarning
