@@ -1,5 +1,5 @@
 //
-//  TRViewController.h
+//  TRPoiViewController.h
 //  Tracksource POI
 //
 //  Created by Paulo Luis Franchini Casaretto on 2/2/14.
@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MapKit/MapKit.h>
 
-@interface TRViewController : UIViewController
-@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@interface TRPoiViewController : UIViewController
 
 @end

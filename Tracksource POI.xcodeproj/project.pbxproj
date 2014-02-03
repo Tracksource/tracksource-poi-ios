@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2F3203AD189EE05A0049348A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F3203AC189EE05A0049348A /* CoreLocation.framework */; };
 		2F3203AF189EEC1C0049348A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F3203AE189EEC1C0049348A /* MapKit.framework */; };
+		2F3203B3189F1C4F0049348A /* TRPoiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3203B1189F1C4F0049348A /* TRPoiViewController.m */; };
+		2F3203B4189F1C4F0049348A /* TRPoiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F3203B2189F1C4F0049348A /* TRPoiViewController.xib */; };
 		2FBFEB00189EDBB8002655A4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFEAFF189EDBB8002655A4 /* Foundation.framework */; };
 		2FBFEB02189EDBB8002655A4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFEB01189EDBB8002655A4 /* CoreGraphics.framework */; };
 		2FBFEB04189EDBB8002655A4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFEB03189EDBB8002655A4 /* UIKit.framework */; };
@@ -16,7 +18,6 @@
 		2FBFEB0C189EDBB8002655A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FBFEB0B189EDBB8002655A4 /* main.m */; };
 		2FBFEB10189EDBB8002655A4 /* TRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FBFEB0F189EDBB8002655A4 /* TRAppDelegate.m */; };
 		2FBFEB13189EDBB8002655A4 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FBFEB11189EDBB8002655A4 /* Main_iPhone.storyboard */; };
-		2FBFEB16189EDBB8002655A4 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FBFEB14189EDBB8002655A4 /* Main_iPad.storyboard */; };
 		2FBFEB19189EDBB8002655A4 /* TRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FBFEB18189EDBB8002655A4 /* TRViewController.m */; };
 		2FBFEB1B189EDBB8002655A4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FBFEB1A189EDBB8002655A4 /* Images.xcassets */; };
 		2FBFEB22189EDBB8002655A4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFEB21189EDBB8002655A4 /* XCTest.framework */; };
@@ -40,6 +41,9 @@
 /* Begin PBXFileReference section */
 		2F3203AC189EE05A0049348A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		2F3203AE189EEC1C0049348A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		2F3203B0189F1C4F0049348A /* TRPoiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRPoiViewController.h; sourceTree = "<group>"; };
+		2F3203B1189F1C4F0049348A /* TRPoiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRPoiViewController.m; sourceTree = "<group>"; };
+		2F3203B2189F1C4F0049348A /* TRPoiViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TRPoiViewController.xib; sourceTree = "<group>"; };
 		2FBFEAFC189EDBB8002655A4 /* Tracksource POI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tracksource POI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FBFEAFF189EDBB8002655A4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2FBFEB01189EDBB8002655A4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -51,7 +55,6 @@
 		2FBFEB0E189EDBB8002655A4 /* TRAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TRAppDelegate.h; sourceTree = "<group>"; };
 		2FBFEB0F189EDBB8002655A4 /* TRAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TRAppDelegate.m; sourceTree = "<group>"; };
 		2FBFEB12189EDBB8002655A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		2FBFEB15189EDBB8002655A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		2FBFEB17189EDBB8002655A4 /* TRViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TRViewController.h; sourceTree = "<group>"; };
 		2FBFEB18189EDBB8002655A4 /* TRViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TRViewController.m; sourceTree = "<group>"; };
 		2FBFEB1A189EDBB8002655A4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -131,11 +134,13 @@
 				2FBFEB0E189EDBB8002655A4 /* TRAppDelegate.h */,
 				2FBFEB0F189EDBB8002655A4 /* TRAppDelegate.m */,
 				2FBFEB11189EDBB8002655A4 /* Main_iPhone.storyboard */,
-				2FBFEB14189EDBB8002655A4 /* Main_iPad.storyboard */,
 				2FBFEB17189EDBB8002655A4 /* TRViewController.h */,
 				2FBFEB18189EDBB8002655A4 /* TRViewController.m */,
 				2FBFEB1A189EDBB8002655A4 /* Images.xcassets */,
 				2FBFEB06189EDBB8002655A4 /* Supporting Files */,
+				2F3203B0189F1C4F0049348A /* TRPoiViewController.h */,
+				2F3203B1189F1C4F0049348A /* TRPoiViewController.m */,
+				2F3203B2189F1C4F0049348A /* TRPoiViewController.xib */,
 			);
 			path = "Tracksource POI";
 			sourceTree = "<group>";
@@ -248,8 +253,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2FBFEB16189EDBB8002655A4 /* Main_iPad.storyboard in Resources */,
 				2FBFEB1B189EDBB8002655A4 /* Images.xcassets in Resources */,
+				2F3203B4189F1C4F0049348A /* TRPoiViewController.xib in Resources */,
 				2FBFEB13189EDBB8002655A4 /* Main_iPhone.storyboard in Resources */,
 				2FBFEB0A189EDBB8002655A4 /* InfoPlist.strings in Resources */,
 			);
@@ -304,6 +309,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2FBFEB10189EDBB8002655A4 /* TRAppDelegate.m in Sources */,
+				2F3203B3189F1C4F0049348A /* TRPoiViewController.m in Sources */,
 				2FBFEB0C189EDBB8002655A4 /* main.m in Sources */,
 				2FBFEB19189EDBB8002655A4 /* TRViewController.m in Sources */,
 			);
@@ -342,14 +348,6 @@
 				2FBFEB12189EDBB8002655A4 /* Base */,
 			);
 			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		2FBFEB14189EDBB8002655A4 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2FBFEB15189EDBB8002655A4 /* Base */,
-			);
-			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 		2FBFEB2A189EDBB8002655A4 /* InfoPlist.strings */ = {
@@ -447,6 +445,7 @@
 				GCC_PREFIX_HEADER = "Tracksource POI/Tracksource POI-Prefix.pch";
 				INFOPLIST_FILE = "Tracksource POI/Tracksource POI-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -461,6 +460,7 @@
 				GCC_PREFIX_HEADER = "Tracksource POI/Tracksource POI-Prefix.pch";
 				INFOPLIST_FILE = "Tracksource POI/Tracksource POI-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
