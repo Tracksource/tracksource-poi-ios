@@ -77,8 +77,7 @@
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
 	NSLog(@"HAH");
-	TRPoiViewController *controller = [[TRPoiViewController alloc] initWithNibName:@"TRPoiViewController" bundle:[NSBundle mainBundle]];
-	[self presentViewController:controller animated:YES completion:nil];
+	[self performSegueWithIdentifier:@"poiSegue" sender:self];
 }
 
 #pragma mark --
