@@ -10,6 +10,7 @@
 		2F3203AD189EE05A0049348A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F3203AC189EE05A0049348A /* CoreLocation.framework */; };
 		2F3203AF189EEC1C0049348A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F3203AE189EEC1C0049348A /* MapKit.framework */; };
 		2F3203B3189F1C4F0049348A /* TRPoiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3203B1189F1C4F0049348A /* TRPoiViewController.m */; };
+		2F5A2B7E18AFC7DD005B6D8B /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F5A2B7D18AFC7DD005B6D8B /* MessageUI.framework */; };
 		2FBFEB00189EDBB8002655A4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFEAFF189EDBB8002655A4 /* Foundation.framework */; };
 		2FBFEB02189EDBB8002655A4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFEB01189EDBB8002655A4 /* CoreGraphics.framework */; };
 		2FBFEB04189EDBB8002655A4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFEB03189EDBB8002655A4 /* UIKit.framework */; };
@@ -42,6 +43,7 @@
 		2F3203AE189EEC1C0049348A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2F3203B0189F1C4F0049348A /* TRPoiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRPoiViewController.h; sourceTree = "<group>"; };
 		2F3203B1189F1C4F0049348A /* TRPoiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRPoiViewController.m; sourceTree = "<group>"; };
+		2F5A2B7D18AFC7DD005B6D8B /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		2FBFEAFC189EDBB8002655A4 /* Tracksource POI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tracksource POI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FBFEAFF189EDBB8002655A4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2FBFEB01189EDBB8002655A4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -70,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F5A2B7E18AFC7DD005B6D8B /* MessageUI.framework in Frameworks */,
 				2F3203AF189EEC1C0049348A /* MapKit.framework in Frameworks */,
 				2F3203AD189EE05A0049348A /* CoreLocation.framework in Frameworks */,
 				2FBFEB02189EDBB8002655A4 /* CoreGraphics.framework in Frameworks */,
@@ -115,6 +118,7 @@
 		2FBFEAFE189EDBB8002655A4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2F5A2B7D18AFC7DD005B6D8B /* MessageUI.framework */,
 				2F3203AE189EEC1C0049348A /* MapKit.framework */,
 				2F3203AC189EE05A0049348A /* CoreLocation.framework */,
 				2FBFEAFF189EDBB8002655A4 /* Foundation.framework */,

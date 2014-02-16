@@ -13,8 +13,10 @@
 
 @interface TRViewController () <CLLocationManagerDelegate, MKMapViewDelegate> {
 	CLLocationManager *locationManager;
+	Boolean hasTouchedScreen;
 }
 @property CLLocation *lastLocation;
+@property CLLocation *locationToSend;
 
 @end
 
@@ -24,12 +26,15 @@
 {
 	[super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+	hasTouchedScreen = NO;
+	
 	[self.mapView setDelegate:self];
+	
 	CLLocationManager *manager = [[CLLocationManager alloc] init];
 	locationManager = manager;
 	locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-	manager.delegate = self;
-	[manager startUpdatingLocation];
+	locationManager.delegate = self;
+	[locationManager startUpdatingLocation];
 	
 	UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
 																				initWithTarget:self action:@selector(addPinToMap:)];
@@ -43,6 +48,8 @@
 	
 	if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
 		return;
+	
+	hasTouchedScreen = YES;
 	
 	CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
 	CLLocationCoordinate2D touchMapCoordinate =
@@ -76,26 +83,36 @@
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-	NSLog(@"HAH");
+	self.locationToSend = [[CLLocation alloc] initWithCoordinate:[view.annotation coordinate] altitude:0 horizontalAccuracy:self.lastLocation.horizontalAccuracy verticalAccuracy:0 course:0 speed:0 timestamp:nil];
 	[self performSegueWithIdentifier:@"poiSegue" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+	if ([segue.identifier isEqualToString:@"poiSegue"]) {
+		TRPoiViewController *controller = (TRPoiViewController *)[(UINavigationController *)segue.destinationViewController topViewController];
+	
+		controller.location = self.locationToSend;
+	}
 }
 
 #pragma mark --
 #pragma mark CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    // omitting accuracy & cache checking
 	CLLocation *newLocation = [locations lastObject];
+	
+	if (hasTouchedScreen) {
+		return;
+	}
 	
 	NSLog(@"holy shit %f, %f",2.0f * newLocation.horizontalAccuracy, self.lastLocation.horizontalAccuracy);
 		
-	if (2.0f * newLocation.horizontalAccuracy < self.lastLocation.horizontalAccuracy) {
-		[self.mapView setRegion:MKCoordinateRegionMakeWithDistance(newLocation.coordinate, newLocation.horizontalAccuracy * 3.5, newLocation.horizontalAccuracy * 3.5) animated:YES];
-		
-	}
+	
+	[self.mapView setRegion:MKCoordinateRegionMakeWithDistance(newLocation.coordinate, newLocation.horizontalAccuracy * 3.5, newLocation.horizontalAccuracy * 3.5) animated:YES];
+	
 	
 	self.lastLocation = newLocation;
-	// [locationManager stopUpdatingLocation];
 }
 
 - (void)didReceiveMemoryWarning
