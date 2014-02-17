@@ -8,11 +8,13 @@
 
 #import "TRPoiViewController.h"
 #import <MessageUI/MessageUI.h>
+#import <AFNetworking/AFNetworking.h>
 
 @interface TRPoiViewController (){
 	NSArray *categories;
 }
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) NSDictionary *selectedCategory;
 
 @end
 
@@ -30,13 +32,27 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	categories = [NSArray arrayWithObjects:@"Categoria 1", @"Categoria 2", @"Categoria 3", nil];
+	categories = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Categories" ofType:@"plist"]];
 	[self.categoryPickerView selectRow:2 inComponent:0 animated:NO];
 	
+	self.sendButton.enabled = false;
+	
+	RACSignal *enderecoEnabled = [[RACObserve(self, selectedCategory) filter:^BOOL(NSDictionary *dict){
+		return [dict objectForKey:@"endereco"] != NULL ;
+	}]map:^(NSDictionary *dict) {
+		return [dict objectForKey:@"endereco"];
+	}];
+	
+	RAC(self.streetTextField, enabled) = enderecoEnabled;
+	RAC(self.numberTextField, enabled) = enderecoEnabled;
+	RAC(self.bairroTextField, enabled) = enderecoEnabled;
+	RAC(self.phoneTextField, enabled)  = enderecoEnabled;
+	
 	RAC(self.sendButton, enabled) = [RACSignal
-	 combineLatest:@[self.nomeTextField.rac_textSignal,self.streetTextField.rac_textSignal, self.numberTextField.rac_textSignal, self.bairroTextField.rac_textSignal, self.phoneTextField.rac_textSignal]
-		reduce:^(NSString *nome, NSString *street,NSString *bairro, NSString *phone) {
-		return @(nome.length > 0 && street.length > 0 && bairro.length > 0 && phone.length > 0);
+	 combineLatest:@[enderecoEnabled, self.nomeTextField.rac_textSignal,self.streetTextField.rac_textSignal, self.numberTextField.rac_textSignal, self.bairroTextField.rac_textSignal, self.phoneTextField.rac_textSignal]
+		reduce:^(NSNumber *enderecoEnabledVal, NSString *nome, NSString *number, NSString *street,NSString *bairro, NSString *phone) {
+			BOOL enderecoEnabled = [enderecoEnabledVal boolValue];
+			return @(nome.length > 0 && (!enderecoEnabled  || (street.length > 0 && number.length > 0 && bairro.length > 0 && phone.length > 0)));
 	}];
 }
 
@@ -51,42 +67,27 @@
 }
 
 - (IBAction)sendButtonPressed:(id)sender {
-	NSString *mensagem = [NSString stringWithFormat:
-												@"<categoria>%@</categoria>\
-												<nomepoi>%@</nomepoi>\
-												<latitude>%f</latitude>\
-												<longitude>%f</longitude>\
-												<accuracy>%f</accuracy>\
-												<endereco_rua>%@</endereco_rua>\
-												<endereco_numero>%@</endereco_numero>\
-												<endereco_bairro>%@</endereco_bairro>\
-												<endereco_telefone>%@</endereco_telefone>\
-												Enviado via iPhone",
-												[categories objectAtIndex:[self.categoryPickerView selectedRowInComponent:0]],
-												self.nomeTextField.text,
-												self.location.coordinate.latitude,
-												self.location.coordinate.longitude,
-												self.location.horizontalAccuracy,
-												self.streetTextField.text,
-												self.numberTextField.text,
-												self.bairroTextField.text,
-												self.phoneTextField.text
-//												];
-//	if ([MFMailComposeViewController canSendMail]) {
-//		MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
-//		[controller setSubject:<#(NSString *)#>]
-//	}
-	
-//	"<categoria>%@</categoria>";
-//	mensagem += "\n<nomepoi>" + nomePoi.getText() + "</nomepoi>";
-//	mensagem += "\n<latitude>" + latitude.getText() + "</latitude>";
-//	mensagem += "\n<longitude>" + longitude.getText() + "</longitude>";
-//	mensagem += "\n<accuracy>" + accuracy.getText() + "</accuracy>";
-//	mensagem += "\n<endereco_rua>" + enderecoRua.getText() + "</endereco_rua>";
-//	mensagem += "\n<endereco_numero>" + enderecoNumero.getText() + "</endereco_numero>";
-//	mensagem += "\n<endereco_bairro>" + enderecoBairro.getText() + "</endereco_bairro>";
-//	mensagem += "\n<endereco_telefone>" + enderecoTelefone.getText() + "</endereco_telefone>";
-//	mensagem += "\n\nEnviado via Android";
+	return;
+	NSString *category = [[categories objectAtIndex: [self.categoryPickerView  selectedRowInComponent:0]] objectForKey:@"codigoSite"];
+	NSDictionary *params =  @{
+														@"nome":                         self.nomeTextField.text,
+														@"latitude":                     [NSNumber numberWithFloat:self.location.coordinate.latitude],
+														@"longitude":                    [NSNumber numberWithFloat:self.location.coordinate.longitude ],
+														@"rua":                          self.nomeTextField.text,
+														@"numero":                       self.nomeTextField.text,
+														@"bairro":                       self.nomeTextField.text,
+														@"telefone":                     self.nomeTextField.text,
+														@"id_tracksource_pois_padrao":   category
+														
+		};
+
+	AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+	[manager GET:@"http://www.tracksource.org.br/desenv/pois_cadastra2.php" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSLog(@"JSON: %@", responseObject);
+	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    NSLog(@"Error: %@", error);
+	}];
+
 }
 
 #pragma mark -
@@ -103,8 +104,24 @@
 #pragma mark -
 #pragma mark UIPickerViewDelegate
 
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+	NSLog(@"didSelectRow");
+	self.selectedCategory = [categories objectAtIndex:row];
+}
+
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-	return [categories objectAtIndex:row];
+	return [(NSDictionary *)[categories objectAtIndex:row] objectForKey:@"nome"];
+}
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
+	UILabel* tView = (UILabel*)view;
+	if (!tView){
+		tView = [[UILabel alloc] init];
+		tView.adjustsFontSizeToFitWidth = YES;
+	}
+	tView.text = [self pickerView:pickerView titleForRow:row forComponent:component];
+	tView.textAlignment = UIBaselineAdjustmentAlignCenters;
+	return tView;
 }
 
 #pragma mark -
@@ -113,4 +130,12 @@
 	[self.view endEditing:YES];
 }
 
+
+#pragma mark -
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+	[textField resignFirstResponder];
+	return YES;
+}
 @end

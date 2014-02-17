@@ -10,7 +10,7 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface TRPoiViewController : UITableViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDelegate>
+@interface TRPoiViewController : UITableViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) CLLocation *location;
 
